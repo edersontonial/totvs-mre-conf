@@ -1,0 +1,40 @@
+export const manifestationParametersEn = {
+    addNewManifestationParameters: 'Add Manifestation Receipt',
+    editManifestationParameters: 'Update Manifestation Parameters',
+    detailManifestationParameters: 'Detail Manifestation Parameters',
+    copyManifestationParameters: 'Copy Manifestation Parameters of Site ',
+
+    excludeTitle: 'Confirm removal',
+    excludeOne: 'Are you sure do you want to remove this record? The operation can not be undone.',
+    excludeMore: 'Are you sure do you want to remove records? The operation can not be undone.',
+    excludeText: 'Are you sure do you want to remove ? The operation can not be undone.',
+
+    cancelTitle: 'Cancel changes',
+    cancelText: 'Are you sure do you want to cancel your changes? All the unsaved data will be lost.',
+
+    createdMessage: 'Record successfully saved.',
+    excludedMessage: 'Record successfully removed.',
+    updatedMessage: 'Record successfully updated.',
+
+    siteId: 'Site',
+    site: 'Site',
+    siteName: 'Site Name',
+    environment: 'Environment',
+    processVersion: 'Version',
+    usesNationalEnvironment: 'Uses National Environment',
+    lastNsu: 'Last NSU',
+    userLastChange: 'Last Change',
+    manualManifestationCol: 'Manif Dest Manual',
+    manualManifestation: 'Carry out manual addressee manifest',
+    manifestationByReceiptCol: 'Manif Automatic',
+    manifestationByReceipt: 'Execute Manifestation Automatic by Receipt',
+    xmlDirectory: 'Diretory to save XML',
+    process: 'Process',
+    configEnvironment: 'Environment Configuration',
+    manifestationreceipt: 'Manifestation Receipt',
+    updated: 'Updated',
+    homologation: 'Homologation',
+    production: 'Production',
+    confirmOperation: 'Operation Confirmed',
+    awareOperation: 'Operation Knowl'
+};

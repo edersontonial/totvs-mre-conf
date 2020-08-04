@@ -1,0 +1,15 @@
+<po-page-list
+    [p-title]="literals?.parametersSiteFamily"
+    [p-breadcrumb]="breadcrumb"
+    [p-disclaimer-group]="disclaimerGroup"
+    [p-filter]="filterSettings">
+    <po-table #tableList
+        p-checkbox="false"
+        p-hide-select-all="true"
+        [p-columns]="columns"
+        [p-items]="items"
+        [p-actions]="tableActions"
+        [p-show-more-disabled]="!hasNext"
+        (p-show-more)="search(true)">        
+    </po-table>
+</po-page-list>

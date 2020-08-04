@@ -1,0 +1,88 @@
+<po-page-default 
+    [p-actions]="getActions()" 
+    [p-breadcrumb]="isJustDetail() ? undefined : metadata?.breadcrumb" 
+    [p-title]="metadata?.title">
+
+    <po-dynamic-form name="formPK" 
+        [p-fields]="metadata?.fieldsPK"
+        [p-value]="userParameters"
+        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+    </po-dynamic-form>
+
+    <po-tabs class="po-md-12">
+        <!--########### FOLDER DIGITAÇÃO/GERAÇÃO ##########-->
+        <po-tab [p-label]="metadata?.literals?.typing" 
+            (p-click)="clickFolderTyping()" 
+            p-active="true">
+
+            <po-accordion>
+                <!--########### HABILITAR/DESABILITAR CAMPOS ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.enableDisableFields" #enableDisableFields>
+                    <po-dynamic-form name="formEnableDisableFields" 
+                        [p-fields]="metadata?.fieldsTypingEnableDisable"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>
+                </po-accordion-item>
+                <!--########### Configurações ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.configurations" #configurationsTyping>
+                    <po-dynamic-form name="formConfigurations" 
+                        [p-fields]="metadata?.fieldsTypingConfigurations"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>
+                </po-accordion-item>
+
+                <!--########### Validações ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.validations" #validationsTyping>
+                    <po-dynamic-form name="formValidations" 
+                        [p-fields]="metadata?.fieldsTypingValidations"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>
+                </po-accordion-item>
+
+                <!--########### Compras ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.orders" #orders>
+                    <po-dynamic-form name="formOrders" 
+                        [p-fields]="metadata?.fieldsTypingOrders"
+                        [p-value]="userParameters"         
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate"> 
+                    </po-dynamic-form>
+                </po-accordion-item>
+
+                <!--########### Duplicatas ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.duplicates" #duplicates>
+                    <po-dynamic-form name="formDuplicates" 
+                        [p-fields]="metadata?.fieldsTypingDuplicates"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>
+                </po-accordion-item>
+            </po-accordion>
+        </po-tab>
+
+        <!--########### FOLDER ATUALIZAÇÃO RECEBIMENTO FISCAL ##########-->
+        <po-tab [p-label]="metadata?.literals?.updateFiscalReceive" 
+                (p-click)="clickFolderUpdate()">      
+            <po-accordion>
+                <!--########### Configurações ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.configurations" #updateConfigurations>
+                    <po-dynamic-form name="formConfigurations" 
+                        [p-fields]="metadata?.fieldsUpdateFiscalConfigurations"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>
+                </po-accordion-item>
+                <!--########### Validações ##########-->
+                <po-accordion-item [p-label]="metadata?.literals?.validations" #validationsUpdate>       
+                    <po-dynamic-form name="formValidations" 
+                        [p-fields]="metadata?.fieldsUpdateFiscalValidations"
+                        [p-value]="userParameters"
+                        p-validate="/dts/datasul-rest/resources/prg/rep/v1/userParameters/validate">
+                    </po-dynamic-form>              
+                </po-accordion-item>
+            </po-accordion>
+        </po-tab>
+    </po-tabs>
+</po-page-default>

@@ -1,0 +1,188 @@
+<!-- 
+A regra desta interface é só exibir os campos que são retornados pelo backend como hidden = false
+O Backend deve fazer o controle de localização, se o campo não deve ser exibido, este
+campo deve ser retornado no objeto metadados como hidden = true.
+-->
+<po-page-default *ngIf="metadados!=undefined"
+    [p-title]="literals?.generalReceivingParameters"
+    [p-actions]="isDetail ? [] : pageActions">
+
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.general">
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.validatesAccountingAccounts.hidden"
+            name="validatesAccountingAccounts"
+            [p-label]="literals?.validatesAccountingAccounts"
+            [(ngModel)]="parameters.validatesAccountingAccounts"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.validatesAccountingAccounts.disabled || isDetail"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.usesMultipleNatures.hidden"
+            name="usesMultipleNatures"
+            [p-label]="literals?.usesMultipleNatures"
+            [(ngModel)]="parameters.usesMultipleNatures"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.usesMultipleNatures.disabled || isDetail"
+            (p-change)="changeUsesMultipleNatures()"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.suggestDuplicateWithHoldingTax.hidden"
+            name="suggestDuplicateWithHoldingTax"
+            [p-label]="literals?.suggestDuplicateWithHoldingTax"
+            [(ngModel)]="parameters.suggestDuplicateWithHoldingTax"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.suggestDuplicateWithHoldingTax.disabled || isDetail"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.usesFASBCurrencyTransactionDate.hidden"
+            name="usesFASBCurrencyTransactionDate"
+            [p-label]="literals?.usesFASBCurrencyTransactionDate"
+            [(ngModel)]="parameters.usesFASBCurrencyTransactionDate"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.usesFASBCurrencyTransactionDate.disabled || isDetail"
+            >
+        </po-switch>        
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.expensesAsProductCost.hidden"
+            name="expensesAsProductCost"
+            [p-label]="literals?.expensesAsProductCost"
+            [(ngModel)]="parameters.expensesAsProductCost"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.expensesAsProductCost.disabled || isDetail"
+            >
+        </po-switch>  
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.taxAsProductCost.hidden"
+            name="taxAsProductCost"
+            [p-label]="literals?.taxAsProductCost"
+            [(ngModel)]="parameters.taxAsProductCost"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.taxAsProductCost.disabled || isDetail"
+            >
+        </po-switch> 
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.differentRemittanceCurrencyOrder.hidden"
+            name="differentRemittanceCurrencyOrder"
+            [p-label]="literals?.differentRemittanceCurrencyOrder"
+            [(ngModel)]="parameters.differentRemittanceCurrencyOrder"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.differentRemittanceCurrencyOrder.disabled || isDetail"
+            >
+        </po-switch>         
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.usesRGA.hidden"
+            name="usesRGA"
+            [p-label]="literals?.usesRGA"
+            [(ngModel)]="parameters.usesRGA"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.usesRGA.disabled || isDetail"
+            >
+        </po-switch> 
+
+        <!-- Quando for mercado internacional não tem recebimento físico mas existe contagem no RE3001 -->
+        <po-switch class="po-md-4" *ngIf="metadados?.physicalReceipt.hidden"
+            name="accountingForCountDifference"
+            [p-label]="literals?.accountingForCountDifference"
+            [(ngModel)]="parameters.accountingForCountDifference"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.accountingForCountDifference.disabled || isDetail"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.usesSeries.hidden"
+            name="usesSeries"
+            [p-label]="literals?.usesSeries"
+            [(ngModel)]="parameters.usesSeries"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.usesSeries.disabled || isDetail"
+            (p-change)="changeUsesSeries()"
+            >
+        </po-switch>
+
+        <po-lookup class="po-md-4" *ngIf="!metadados?.defaultSeries.hidden"
+            name="defaultSeries"
+            [p-label]="literals?.defaultSeries"
+            [(ngModel)]="parameters.defaultSeries"
+            [p-columns]="serieslookupColumns"
+            [p-filter-service]="seriesService"
+            p-field-label="seriesCode"
+            p-field-value="seriesCode"
+            p-maxlength="5"
+            [p-disabled]="metadados?.defaultSeries.disabled || isDetail">
+        </po-lookup>
+    </po-widget>
+
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.integrations">
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.wmsIntegration.hidden"
+            name="wmsIntegration"
+            [p-label]="literals?.wmsIntegration"
+            [(ngModel)]="parameters.wmsIntegration"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.wmsIntegration.disabled || isDetail"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.accountingGFEIntegration.hidden"
+            name="accountingGFEIntegration"
+            [p-label]="literals?.accountingGFEIntegration"
+            [(ngModel)]="parameters.accountingGFEIntegration"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.accountingGFEIntegration.disabled || isDetail"
+            >
+        </po-switch>  
+        
+        <po-select class="po-md-4" *ngIf="!metadados?.generationTypeForAccountsPayable.hidden"
+            name="generationTypeForAccountsPayable"
+            [(ngModel)]="parameters.generationTypeForAccountsPayable"
+            [p-label]="literals?.generationTypeForAccountsPayable"
+            [p-options]="generationTypeForAccountsPayableOptions"
+            [p-disabled]="metadados?.generationTypeForAccountsPayable.disabled || isDetail"
+            >
+        </po-select>        
+    </po-widget>
+
+    <po-widget *ngIf="!metadados?.physicalReceipt.hidden"
+        class="po-md-12"
+        [p-title]="literals?.physicalReceipt">
+
+        <po-switch class="po-md-4" *ngIf="!metadados?.physicalReceipt.hidden"
+            name="physicalReceipt"
+            [(ngModel)]="parameters.physicalReceipt"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.physicalReceipt.disabled || isDetail"
+            (p-change)="changePhysicalReceipt()"
+            >
+        </po-switch>
+
+        <po-switch class="po-md-8" *ngIf="!metadados?.accountingForCountDifference.hidden"
+            name="accountingForCountDifference"
+            [(ngModel)]="parameters.accountingForCountDifference"
+            [p-label-off]="literals?.notAccountingForCountDifference"
+            [p-label-on]="literals?.accountingForCountDifference"
+            [p-disabled]="!parameters?.physicalReceipt || isDetail"
+            >
+        </po-switch>
+    </po-widget>
+</po-page-default
+>

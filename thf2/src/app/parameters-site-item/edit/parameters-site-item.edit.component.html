@@ -1,0 +1,59 @@
+<po-page-default
+    [p-actions]="isPageEdit ? editActions : detailActions"
+    [p-breadcrumb]="isPageEdit ? editBreadcrumb : detailBreadcrumb"
+    [p-title]="isPageEdit ? literals?.editParametersSiteItem : literals?.detailParametersSiteItem">
+
+    <div class="po-row">
+        <po-input class="po-md-6"
+            name="item"
+            [p-label]="literals?.item"
+            [ngModel]="parametersSiteItem.item + ' - ' + parametersSiteItem.itemDescription"
+            p-disabled>
+        </po-input>
+        <po-input class="po-md-6"
+            name="siteCode"
+            [p-label]="literals?.site"
+            [ngModel]="parametersSiteItem.site + ' - ' + parametersSiteItem.siteName"
+            p-disabled>
+        </po-input>
+    </div>
+
+    <po-container class="po-md-12 po-pt-1">
+        <po-decimal 
+            class="po-md-6"
+            name="limitVariationQuantity"
+            p-decimals-length = "4"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.limitVariationQuantity"
+            [p-placeholder]="literals?.limitVariationQuantity"
+            [(ngModel)]="parametersSiteItem.limitVariationQuantity">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="variationGreaterAmountReceipt"
+            p-decimals-length ="5"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.variationGreaterAmountReceipt"
+            [p-placeholder]="literals?.variationGreaterAmountReceipt"
+            [(ngModel)]="parametersSiteItem.variationGreaterAmountReceipt">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="limitVariationValue"
+            p-decimals-length = "5"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.limitVariationValue"
+            [p-placeholder]="literals?.limitVariationValue"
+            [(ngModel)]="parametersSiteItem.limitVariationValue">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="variationQuantityReceipt"
+            p-decimals-length = "2"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.variationQuantityReceipt"
+            [p-placeholder]="literals?.variationQuantityReceipt"
+            [(ngModel)]="parametersSiteItem.variationQuantityReceipt">
+        </po-decimal>
+    </po-container>
+</po-page-default>

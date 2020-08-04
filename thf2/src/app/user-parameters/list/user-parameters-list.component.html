@@ -1,0 +1,18 @@
+<po-page-list
+    [p-title]="metadata?.title"
+    [p-breadcrumb]="metadata?.breadcrumb"
+    [p-actions]="pageActions"
+    [p-disclaimer-group]="disclaimerGroup"
+    [p-filter]="filterSettings"
+>
+    <po-table
+        p-checkbox="false" 
+        p-striped="true"        
+        [p-columns]="metadata?.fields"
+        [p-items]="items"
+        [p-actions]="tableActions"
+        [p-show-more-disabled]="!hasNext"
+        (p-show-more)="search(true)">
+    </po-table>
+
+</po-page-list>

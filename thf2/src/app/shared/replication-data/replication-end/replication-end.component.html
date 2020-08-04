@@ -1,0 +1,43 @@
+<po-widget
+        class="po-md-6"
+        [p-title]="literals?.copyWidget">
+        <po-checkbox 
+                name="exportItem" 
+                [(ngModel)]="replicationDataParam.exportItem"
+                [p-label]="literals?.exportItem"
+                p-disabled="true"> 
+        </po-checkbox>
+        <po-checkbox 
+                name="exportSiteItem" 
+                [(ngModel)]="replicationDataParam.exportSiteItem"
+                [p-label]="literals?.exportSiteItem"
+                p-disabled="true"> 
+        </po-checkbox>
+        <po-checkbox name="exportSiteFamily" 
+                [(ngModel)]="replicationDataParam.exportSiteFamily"
+                [p-label]="literals?.exportSiteFamily"
+                p-disabled="true">
+        </po-checkbox>
+</po-widget>
+<po-widget
+        class="po-md-6"
+        [p-title]="literals?.parameter">
+        <po-checkbox 
+                name="confirmationExport" 
+                [(ngModel)]="replicationDataParam.confirmationExport"
+                [p-label]="literals?.confirmationExport"
+                p-disabled="true"> 
+        </po-checkbox>
+        <po-checkbox 
+                name="onlyUpdateFieldsExport" 
+                [(ngModel)]="replicationDataParam.onlyFieldsChanged"
+                [p-label]="literals?.onlyUpdateFieldsExport"
+                p-disabled="true"> 
+        </po-checkbox>
+        <po-checkbox 
+                name="previousContentExport" 
+                [(ngModel)]="replicationDataParam.previousContent"
+                [p-label]="literals?.previousContentExport"
+                p-disabled="true">
+        </po-checkbox>
+</po-widget>

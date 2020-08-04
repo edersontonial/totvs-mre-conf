@@ -1,0 +1,60 @@
+<po-page-default
+    [p-actions]="isPageEdit ? editActions : detailActions"
+    [p-breadcrumb]="isPageEdit ? editBreadcrumb : detailBreadcrumb"
+    [p-title]="isPageEdit ? literals?.editParametersSiteFamily : literals?.detailParametersSiteFamily">
+    
+    <div class="po-row">
+        <po-input class="po-md-6"
+            name="familyCode"
+            [p-label]="literals?.familyCode"
+            [ngModel]="parametersSiteFamily.familyCode + ' - ' + parametersSiteFamily.familyName"
+            p-disabled>
+        </po-input>
+        <po-input class="po-md-6"
+            name="siteCode"
+            [p-label]="literals?.site"
+            [ngModel]="parametersSiteFamily.site + ' - ' + parametersSiteFamily.siteName"
+            p-disabled>
+        </po-input>
+    </div>
+
+    <po-container class="po-md-12 po-pt-1">
+        <po-decimal 
+            class="po-md-6"
+            name="varQuantityLimit"
+            p-decimals-length = "5"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.varQuantityLimit"
+            [p-placeholder]="literals?.varQuantityLimit"
+            [(ngModel)]="parametersSiteFamily.varQuantityLimit">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="variationQtyRe"
+            p-decimals-length ="2"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.variationQtyRe"
+            [p-placeholder]="literals?.variationQtyRe"
+            [(ngModel)]="parametersSiteFamily.variationQtyRe">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="varAmountLimit"
+            p-decimals-length = "5"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.varAmountLimit"
+            [p-placeholder]="literals?.varAmountLimit"
+            [(ngModel)]="parametersSiteFamily.varAmountLimit">
+        </po-decimal>
+        <po-decimal 
+            class="po-md-6"
+            name="greaterAmtVariance"
+            p-decimals-length = "2"
+            [p-disabled]="!isPageEdit"
+            [p-label]="literals?.greaterAmtVariance"
+            [p-placeholder]="literals?.greaterAmtVariance"
+            [(ngModel)]="parametersSiteFamily.greaterAmtVariance">
+        </po-decimal>
+    </po-container>
+
+</po-page-default>

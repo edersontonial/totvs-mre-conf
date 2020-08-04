@@ -1,0 +1,21 @@
+export const replicationDataPt = {
+    targetSite: 'Estab',
+    targetSiteWidget: 'Estabelecimento de destino',
+    parameter: 'Paramêtros',
+    resume: 'Resumo',
+    item: 'Itens',
+    copyWidget: 'Copiar para',
+    end: 'Finalizar',
+    nextLabelWidget: 'Próximo',
+    previousLabelWidget: 'Anterior',
+    confirmationExport: 'Replicar com confirmação',
+    onlyUpdateFieldsExport: 'Replicar apenas os campos alterados',
+    previousContentExport: 'Replicar conforme conteúdo anterior',
+    exportItem: 'Item recebimento',
+    exportSiteItem: 'Item recebimento estabelecimento',
+    exportSiteFamily: 'Família recebimento estabelecimento',
+    exportItemAll: 'Replicar para todos os items com relacionamento',
+    exportSiteAll: 'Replicar para todos os estabelecimento com relacionamento',
+    siteCode: 'Estabelecimento',
+    product: 'Item'
+};

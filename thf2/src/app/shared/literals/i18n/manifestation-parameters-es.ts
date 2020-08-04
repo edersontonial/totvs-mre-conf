@@ -1,0 +1,40 @@
+export const manifestationParametersEs = {
+    addNewManifestationParameters: 'Añadir Parámetros Manifest Destinatario',
+    editManifestationParameters: 'Alteracion Parámetros Manifest Destinatario',
+    detailManifestationParameters: 'Detalle  Parámetros Manifest Destinatario',
+    copyManifestationParameters: 'Copia Parámetros del Sucursal ',
+
+    excludeTitle: 'Confirmar la eliminacion',
+    excludeText: '¿Estás seguro de que deseas eliminar este registro? La operación no se puede deshacer.',
+    excludeMore: '¿Estás seguro de que desea eliminar registros? La operación no se puede deshacer.',
+    excludeOne: 'Estás seguro de que desea eliminar este registro? La operación no se puede deshacer.',
+
+    cancelTitle: 'Cancelar cambios',
+    cancelText: '¿Estás seguro de que desea cancelar sus cambios? Todos los datos no guardados se perderán.',
+
+    createdMessage: 'Registro creado con éxito.',
+    excludedMessage: 'Registro excluido con éxito.',
+    updatedMessage: 'Registro modificado con éxito.',
+
+    siteId: 'Sucur',
+    site: 'Sucursal',
+    siteName: 'Nombre Sucursal',
+    environment: 'Ambiente',
+    processVersion: 'Versión',
+    usesNationalEnvironment: 'Utiliza Ambiente Nacional',
+    lastNsu: 'Último NSU',
+    userLastChange: 'Usuario Última Alterac',
+    manualManifestationCol: 'Manif Dest Manual',
+    manualManifestation: 'Realiza Manifestación Destinatario Manualmente',
+    manifestationByReceiptCol: 'Manif Dest Automática',
+    manifestationByReceipt: 'Realiza Manifestación Automática Recepción',
+    xmlDirectory: 'Directorio Para Salvar XML',
+    process: 'Procesos',
+    configEnvironment: 'Configuración Ambiente',
+    manifestationreceipt: 'Manifestación Destinatario',
+    updated: 'Atualizações',
+    homologation: 'Homologación',
+    production: 'Producción',
+    confirmOperation: 'Operación Confirmada',
+    awareOperation: 'Ciencia de la Operación'
+};

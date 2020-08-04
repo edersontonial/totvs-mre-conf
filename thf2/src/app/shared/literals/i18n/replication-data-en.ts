@@ -1,0 +1,21 @@
+export const replicationDataEn = {
+    targetSite: 'Site',
+    targetSiteWidget: 'Destination site',
+    parameter: 'Parameters',
+    resume: 'Summary',
+    item: 'Items',
+    copyWidget: 'Copy to',
+    end: 'Finalize',
+    nextLabelWidget: 'Next',
+    previousLabelWidget: 'Previous',
+    confirmationExport: 'Reply with confirmation',
+    onlyUpdateFieldsExport: 'Reply only edited fields',
+    previousContentExport: 'Reply according to previous content',
+    exportItem: 'Item receipt',
+    exportSiteItem: 'Item receipt site',
+    exportSiteFamily: 'Family receipt site',
+    exportItemAll: 'Reply to all items with relationship',
+    exportSiteAll: 'Reply to all sites with relationship',
+    siteCode: 'Site',
+    product: 'Item'
+};

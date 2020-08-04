@@ -1,0 +1,22 @@
+<div class="po-row">
+    <po-checkbox 
+        class="po-md-6"
+        name="exportSiteAll"
+        [(ngModel)]="replicationDataParam.exportSiteAll"
+        (p-change)="onChange($event)"
+        [p-label]="literals?.exportSiteAll"> 
+    </po-checkbox>
+</div>
+
+<po-table
+    p-checkbox="true"
+    p-height="380"
+    (p-all-unselected)="onAllUnselected($event)"
+    (p-all-selected)="onAllSelected($event)"
+    (p-selected)="onSelected($event)"
+    (p-unselected)="onUnselected($event)"
+    [p-columns]="columns"
+    [p-items]="siteItems"
+    [p-show-more-disabled]="!hasNext"
+    (p-show-more)="search(true)">        
+</po-table>

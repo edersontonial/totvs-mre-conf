@@ -1,0 +1,346 @@
+<!-- 
+A regra desta interface é só exibir os campos que são retornados pelo backend 
+O Backend deve fazer o controle de localização, se o campo não deve ser exibido, este
+campo não deve ser retornado no json.
+-->
+<po-page-default
+    [p-title]="literals?.inputConverterParameters"
+    [p-actions]="isDetail ? [] : pageActions">
+
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.suggestionsTranslationsLocks">
+
+        <po-switch class="po-md-4"
+            name="suggestTaxClassificationItem"
+            [p-label]="literals?.suggestTaxClassificationItem"
+            [(ngModel)]="parameters.suggestTaxClassificationItem"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+
+        <po-switch class="po-md-4" 
+            name="suggestItemDepositLocation"
+            [p-label]="literals?.suggestItemDepositLocation"
+            [(ngModel)]="parameters.suggestItemDepositLocation"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+
+        <po-switch class="po-md-4" 
+            name="changeAutomaticTransactionDateOnGeneration"
+            [p-label]="literals?.changeAutomaticTransactionDateOnGeneration"
+            [(ngModel)]="parameters.changeAutomaticTransactionDateOnGeneration"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-switch class="po-md-4" 
+            name="listSupplierItem"
+            [p-label]="literals?.listSupplierItem"
+            [(ngModel)]="parameters.listSupplierItem"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>        
+        <po-switch class="po-md-4" 
+            name="translatesXMLObservation"
+            [p-label]="literals?.translatesXMLObservation"
+            [(ngModel)]="parameters.translatesXMLObservation"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-switch class="po-md-4" 
+            name="blockWhiteItem"
+            [p-label]="literals?.blockWhiteItem"
+            [(ngModel)]="parameters.blockWhiteItem"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-switch class="po-md-4" 
+            name="blockCanceledInvoiceGeneration"
+            [p-label]="literals?.blockCanceledInvoiceGeneration"
+            [(ngModel)]="parameters.blockCanceledInvoiceGeneration"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-switch class="po-md-4" 
+            name="enableItem"
+            [p-label]="literals?.enableItem"
+            [(ngModel)]="parameters.enableItem"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-switch class="po-md-4" 
+            name="fifoInXMLImport"
+            [p-label]="literals?.fifoInXMLImport"
+            [(ngModel)]="parameters.fifoInXMLImport"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-select class="po-md-4" 
+            name="receiveAtTAGxPedNFe"
+            [(ngModel)]="parameters.receiveAtTAGxPedNFe"
+            [p-label]="literals?.receiveAtTAGxPedNFe"
+            [p-options]="receiveAtTAGxPedNFeOptions"
+            [p-disabled]="isDetail">
+        </po-select> 
+    </po-widget>    
+    <po-widget
+        class="po-md-6"
+        [p-title]="literals?.physicalDocumentGeneration">
+
+        <po-switch class="po-md-12"
+            name="validatesPhysicalAccessKey"
+            [p-label]="literals?.validateAccessKey"
+            [(ngModel)]="parameters.validatesPhysicalAccessKey"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+    </po-widget>
+    <po-widget
+        class="po-md-6"
+        [p-title]="literals?.electronicBillLading">
+        <po-switch class="po-md-12"
+            name="enableCTe"
+            [p-label]="literals?.enableCTe"
+            [(ngModel)]="parameters.enableCTe"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.enableCTe?.disabled || isDetail">
+        </po-switch>
+    </po-widget>
+    
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.generateTaxDocument">
+
+        <po-switch class="po-md-4"
+            name="validatesTaxAccessKey"
+            [p-label]="literals?.validateAccessKey"
+            [(ngModel)]="parameters.validatesTaxAccessKey"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail">
+        </po-switch>
+        <po-select class="po-md-4" 
+            name="duplicateGenerationAccordingTo"
+            [(ngModel)]="parameters.duplicateGenerationAccordingTo"
+            [p-label]="literals?.duplicateGenerationAccordingTo"
+            [p-options]="duplicateGenerationAccordingToOptions"
+            [p-disabled]="isDetail"
+            (p-change)="changeDuplicateGenerationAccordingTo()">
+        </po-select> 
+        <po-switch class="po-md-4"
+            name="generateWithholdingTaxAutomatically"
+            [p-label]="literals?.generateWithholdingTaxAutomatically"
+            [(ngModel)]="parameters.generateWithholdingTaxAutomatically"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="isDetail || parameters.duplicateGenerationAccordingTo == 1">
+        </po-switch>
+    </po-widget>
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.directoryForReadingXMLs">
+
+        <po-input
+            class="po-md-12"
+            name="directoryForReadingXMLs"
+            [(ngModel)]="parameters.directoryForReadingXMLs"
+            [p-label]=""
+            [p-disabled]="isDetail">
+        </po-input>       
+    </po-widget>
+    <po-widget
+        class="po-md-12"
+        [p-title]="literals?.electronicServiceInvoice">
+        <po-switch class="po-md-4"
+            name="enableNFSe"
+            [p-label]="literals?.enableNFSe"
+            [(ngModel)]="parameters.enableNFSe"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.enableNFSe?.disabled || isDetail">
+        </po-switch>
+        <po-switch class="po-md-4"
+            name="generateDuplicateAutomatically"
+            [p-label]="literals?.generateDuplicateAutomatically"
+            [(ngModel)]="parameters.generateDuplicateAutomatically"
+            [p-label-off]="literals?.disabled"
+            [p-label-on]="literals?.enabled"
+            [p-disabled]="metadados?.generateDuplicateAutomatically?.disabled || isDetail">
+        </po-switch>
+        <po-select class="po-md-4" 
+            name="generationOfTaxesAccordingTo"
+            [(ngModel)]="parameters.generationOfTaxesAccordingTo"
+            [p-label]="literals.generationOfTaxesAccordingTo"
+            [p-options]="generationOfTaxesAccordingToOptions"
+            [p-disabled]="metadados?.generationOfTaxesAccordingTo?.disabled || isDetail">
+        </po-select>
+        <po-widget *ngIf="parameters.generationOfTaxesAccordingTo == 1"
+            class="po-md-12"
+            [p-title]="literals?.withholdingTax">
+            <po-widget 
+                class="po-md-12"
+                [p-title]="literals?.PIS">
+                <po-input
+                    class="po-md-4"
+                    name="PISTax"
+                    [(ngModel)]="parameters.PISTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="PISWithholdingTax"
+                    [(ngModel)]="parameters.PISWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="PISKindDocument"
+                    [(ngModel)]="parameters.PISKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>
+            <po-widget             
+                class="po-md-12"
+                [p-title]="literals?.CONFINS">
+                <po-input
+                    class="po-md-4"
+                    name="COFINSTax"
+                    [(ngModel)]="parameters.COFINSTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="COFINSWithholdingTax"
+                    [(ngModel)]="parameters.COFINSWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="CONFINSKindDocument"
+                    [(ngModel)]="parameters.COFINSKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>
+            <po-widget             
+                class="po-md-12"
+                [p-title]="literals?.incomeTax">
+                <po-input
+                    class="po-md-4"
+                    name="IRRFTax"
+                    [(ngModel)]="parameters.IRRFTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="IRRFWithholdingTax"
+                    [(ngModel)]="parameters.IRRFWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="IRRFKindDocument"
+                    [(ngModel)]="parameters.IRRFKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>
+            <po-widget 
+                class="po-md-12"
+                [p-title]="literals?.CSLL">
+                <po-input
+                    class="po-md-4"
+                    name="CSLLTax"
+                    [(ngModel)]="parameters.CSLLTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="CSLLTaxWithholding"
+                    [(ngModel)]="parameters.CSLLWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="CSLLKindDocument"
+                    [(ngModel)]="parameters.CSLLKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>
+            <po-widget 
+                class="po-md-12"
+                [p-title]="literals?.INSS">
+                <po-input
+                    class="po-md-4"
+                    name="INSSTax"
+                    [(ngModel)]="parameters.INSSTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="INSSTaxWithholding"
+                    [(ngModel)]="parameters.ISSWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="INSSKindDocument"
+                    [(ngModel)]="parameters.INSSKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>
+            <po-widget 
+                class="po-md-12"
+                [p-title]="literals?.ISS">
+                <po-input
+                    class="po-md-4"
+                    name="ISSTax"
+                    [(ngModel)]="parameters.ISSTax"
+                    [p-label]="literals?.tax"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="ISSTaxWithholding"
+                    [(ngModel)]="parameters.ISSWithholdingTax"
+                    [p-label]="literals?.taxWithholding"
+                    [p-disabled]="isDetail">
+                </po-input>
+                <po-input
+                    class="po-md-4"
+                    name="ISSKindDocument"
+                    [(ngModel)]="parameters.INSSKindDocument"
+                    [p-label]="literals?.kindDocument"
+                    [p-disabled]="isDetail">
+                </po-input>                
+            </po-widget>            
+        </po-widget>
+    </po-widget>
+    
+</po-page-default
+>

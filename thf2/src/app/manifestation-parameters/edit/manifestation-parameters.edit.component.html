@@ -1,0 +1,130 @@
+<po-page-default
+    [p-actions]="pageActions()"
+    [p-breadcrumb]="breadCrumb()"
+    [p-title]="titlePage()">
+
+    <po-widget
+        class="po-md-12">
+       
+        <!--Quando a ação da página for incluir, editar ou 
+            copiar é apresentado o lookup -->
+            <po-lookup class="po-md-12" 
+                [hidden]="isPageEdit || disableFields()"
+                name="site"
+                [(ngModel)]="manifestationParameters.siteId"
+                [p-placeholder]="literals?.siteId"
+                [p-label]="literals?.site"
+                [p-literals]="literals"
+                p-field-label="name"
+                p-field-value="code"
+                [p-columns]="zoomSiteColumns"
+                [p-field-format]="zoomSiteFormat"
+                [p-filter-service]="serviceSite"
+                p-required="true"
+                p-auto-focus="true"
+                (p-selected)="onSelected($event)">
+            </po-lookup>
+    <!--Quando a ação da página for consultar, será apresentado o input 
+        no lugar do lookup, pois o lookup quando desabilitado apresenta a lupa -->
+            <po-input class="po-md-12" *ngIf="disableFields() || isPageEdit"
+                name="siteInput"
+                [(ngModel)]="siteDesc"
+                [p-disabled]="disableFields() || isPageEdit"
+                [p-label]="literals?.site" >
+            </po-input>
+        
+
+        <po-widget
+            class="po-md-12"
+            [p-title]="literals?.configEnvironment">
+            <po-select class="po-md-4" 
+                name="environment"
+                [(ngModel)]="manifestationParameters.environment"
+                [p-label]="literals?.environment"
+                [p-options]="optionsEnvironment"
+                [p-disabled]="metadados?.environment.disabled || disableFields()">
+            </po-select>  
+            <po-input 
+                class="po-md-4"
+                name="processVersion"
+                [p-label]="literals?.processVersion"
+                [p-placeholder]="literals?.processVersion"
+                p-mask="9.99"
+                p-minlength= '3'
+                p-mask-format-model="true"
+                [(ngModel)]="manifestationParameters.processVersion"
+                [p-disabled]="metadados?.processVersion.disabled || disableFields()">
+            </po-input>
+            <po-switch class="po-md-12" 
+                name="usesNationalEnvironment"
+                [(ngModel)]="manifestationParameters.usesNationalEnvironment"
+                [p-label-off]="literals?.usesNationalEnvironment"
+                [p-label-on]="literals?.usesNationalEnvironment"
+                [p-disabled]="metadados?.usesNationalEnvironment.disabled || disableFields()">
+            </po-switch>
+        </po-widget>
+
+        <po-widget
+            class="po-md-12"
+            [p-title]="literals?.updated">
+            <po-input
+                class="po-md-4"
+                name="lastNsu"
+                [p-label]="literals?.lastNsu"
+                [p-placeholder]="literals?.lastNsu"
+                [(ngModel)]="manifestationParameters.lastNsu"
+                p-mask="999999999999999"
+                [p-disabled]="metadados?.lastNsu.disabled || disableFields()">
+            </po-input>
+            <po-input 
+                class="po-md-8"
+                name="userLastChange"
+                [p-label]="literals?.userLastChange"
+                [(ngModel)]="manifestationParameters.userLastChange"
+                p-readonly="true"
+                [p-disabled]="metadados?.userLastChange.disabled || disableFields()">
+            </po-input>
+            
+        </po-widget>
+        <po-widget
+            class="po-md-12"
+            [p-title]="literals?.process">
+
+            <po-checkbox
+                class="po-md-8"
+                [(ngModel)]="manifestationParameters.manualManifestation"
+                [p-label]="literals?.manualManifestation"
+                [p-disabled]="metadados?.manualManifestation.disabled || disableFields()"
+                name="manualManifestation" >
+            </po-checkbox>
+            <po-checkbox
+                class="po-md-8"
+                [(ngModel)]="manifestationParameters.manifestationByReceipt"
+                [p-label]="literals?.manifestationByReceipt"
+                name="manifestationByReceipt"
+                [p-disabled]="metadados?.manifestationByReceipt.disabled || disableFields()">
+            </po-checkbox>
+            <po-select class="po-md-4" 
+                name="automaticManifestation" 
+                [(ngModel)]="manifestationParameters.automaticManifestation"
+                [p-disabled]="!manifestationParameters.manifestationByReceipt || disableFields()"
+                [p-placeholder]="literals?.automaticManifestation"
+                [p-options]="optionsAutomatic">
+            </po-select>  
+        </po-widget>
+
+
+        <po-widget
+            class="po-md-12"
+            [p-title]="literals?.xmlDirectory">
+            <po-input 
+                class="po-md-8"
+                name="xmlDirectory"
+                [p-placeholder]="literals?.xmlDirectory"
+                [(ngModel)]="manifestationParameters.xmlDirectory"
+                [p-disabled]="metadados?.xmlDirectory.disabled || disableFields()">
+            </po-input>
+        </po-widget>
+        
+    </po-widget>
+</po-page-default>

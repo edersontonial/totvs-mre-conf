@@ -1,0 +1,20 @@
+<po-checkbox 
+        name="confirmationExport" 
+        [(ngModel)]="replicationDataParam.confirmationExport"
+        [p-disabled]="disabledConfirmation()"
+        [p-label]="literals?.confirmationExport"
+        (p-change)="onChangedConfirmationExport($event)"> 
+</po-checkbox>
+<po-checkbox 
+        name="onlyUpdateFieldsExport" 
+        [(ngModel)]="replicationDataParam.onlyFieldsChanged"
+        [p-disabled]="disabled()"
+        [p-label]="literals?.onlyUpdateFieldsExport"
+        (p-change)="onChangedOnlyUpdateFields($event)"> 
+</po-checkbox>
+<po-checkbox name="previousContentExport" 
+             [(ngModel)]="replicationDataParam.previousContent"
+             [p-disabled]="disabled()"
+             [p-label]="literals?.previousContentExport"
+             (p-change)="onChangedPreviousContent($event)">
+</po-checkbox>

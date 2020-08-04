@@ -1,0 +1,77 @@
+<po-page-default [p-title]="literals?.replica"
+                [p-breadcrumb]="Breadcrumb"
+                [p-actions]="pageActions">
+    <po-stepper p-steps="status" #stepper p-orientation="vertical"  p-step-size="32">
+        <po-step #stepCopy 
+                 [p-label]="literals?.copy"> 
+            <po-widget
+                class="po-md-12"
+                [p-title]="literals?.copyWidget"
+                [p-primary-label] ="literals?.nextLabelWidget"
+                (p-primary-action)="onCopyStep()">
+              <app-replication-tables [replicationDataParam]="replicationData"
+                                      (updateValue)="onChangeReplicationData($event)"></app-replication-tables>
+            </po-widget>
+           
+        </po-step>
+        <po-step #stepParameter
+                 [p-label]="literals?.parameter">
+            <po-widget
+                class="po-md-12"
+                [p-title]="literals?.parameter"
+                [p-secondary-label]="literals?.nextLabelWidget"
+                (p-secondary-action)="onStepParamNext()"
+                [p-primary-label] ="literals?.previousLabelWidget"
+                (p-primary-action)="stepper.previous()">
+        
+              <app-replication-param [replicationDataParam]="replicationData"
+                                     (updateValue)="onChangeReplicationData($event)"></app-replication-param>
+             
+           </po-widget>
+        </po-step>
+        <po-step #stepTargetSite
+                 [p-label]="literals?.targetSite" >
+            <po-widget
+                class="po-md-12"
+                p-height="530"
+                [p-title]="literals?.targetSiteWidget"
+                [p-secondary-label]="literals?.nextLabelWidget"
+                (p-secondary-action)="onStepTargetSiteNext()"
+                [p-primary-label] ="literals?.previousLabelWidget"
+                (p-primary-action)="onStepTargetSitePrevious()"
+                >
+        
+                    <app-replication-list-site [replicationDataParam]="replicationData"
+                                                (updateValue)="onChangeReplicationData($event)"></app-replication-list-site>
+            </po-widget>
+        </po-step>
+        <po-step #stepItem
+                 [p-label]="literals?.item">
+            <po-widget 
+                class="po-md-12"
+                [p-title]="literals?.item"
+                [p-secondary-label]="literals?.nextLabelWidget"
+                (p-secondary-action)="stepper.next()"
+                [p-primary-label] ="literals?.previousLabelWidget"
+                (p-primary-action)="onStepItemPrevious()">
+               
+                <app-replication-list-item [replicationDataParam]="replicationData"
+                                           (updateValue)="onChangeReplicationData($event)"></app-replication-list-item>
+            </po-widget>
+        </po-step>
+        <po-step #stepEnd
+            [p-label]="literals?.end">
+            <po-widget
+                class="po-md-12"
+                p-height="380"
+                [p-title]="literals?.end"
+                [p-secondary-label]="literals?.end"
+                (p-secondary-action)="onConfirmStep()"
+                [p-primary-label] ="literals?.previousLabelWidget"
+                (p-primary-action)="onStepEndPrevious()">
+                <app-replication-end [replicationDataParam]="replicationData"></app-replication-end>
+            </po-widget>
+        </po-step> 
+    </po-stepper>
+    
+ </po-page-default>

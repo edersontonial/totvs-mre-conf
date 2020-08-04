@@ -1,0 +1,17 @@
+<po-checkbox 
+        name="exportItem" 
+        [(ngModel)]="replicationDataParam.exportItem"
+        [p-label]="literals?.exportItem"
+        (p-change)="onChangedExportItem($event)"> 
+</po-checkbox>
+<po-checkbox 
+        name="exportSiteItem" 
+        [(ngModel)]="replicationDataParam.exportSiteItem"
+        [p-label]="literals?.exportSiteItem"
+        (p-change)="onChangedExportSiteItem($event)"> 
+</po-checkbox>
+<po-checkbox name="exportSiteFamily" 
+             [(ngModel)]="replicationDataParam.exportSiteFamily"
+             [p-label]="literals?.exportSiteFamily"
+             (p-change)="onChangedExportSiteFamily($event)">
+</po-checkbox>

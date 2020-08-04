@@ -1,0 +1,596 @@
+<po-page-default
+    [p-actions]="isPageEdit ? editActions : detailActions"
+    [p-breadcrumb]="isPageEdit ? editBreadcrumb : detailBreadcrumb"
+    [p-title]="isPageEdit ? literals?.editreceivingItem : literals?.detailReceivingItem">
+    
+    <div class="po-row">
+       <po-input 
+            class="po-md-12"
+            name="itemCode"
+            [p-label]="literals?.itemCode"
+            [p-disabled]="true"
+            [(ngModel)]="itemDesc">
+        </po-input>
+        
+    </div>
+    <po-tabs>
+        <po-tab 
+            [p-label]="literals?.parameters"
+            [p-active]="true">
+            <po-accordion>
+                <po-accordion-item [p-label]="literals?.variation" #variation>
+                    <po-decimal 
+                        class="po-md-3"
+                        name="varQuantityLimit"
+                        p-decimals-length = "4"
+                        [p-disabled]="disableFields()"
+                        [p-label]="literals?.varQuantityLimit"
+                        [p-placeholder]="literals?.varQuantityLimit"
+                        [(ngModel)]="receivingItem.varQuantityLimit"
+                        [p-thousand-maxlength]="8"
+                        [p-decimals-length]="4">
+                    </po-decimal>
+                    <po-decimal 
+                        class="po-md-3"
+                        name="variationQtyRe"
+                        [p-disabled]="disableFields()"
+                        p-decimals-length = "2"
+                         [p-label]="literals?.variationQtyRe"
+                        [p-placeholder]="literals?.variationQtyRe"
+                        [(ngModel)]="receivingItem.variationQtyRe"
+                        [p-thousand-maxlength]="thousandMaxLengthRate"
+                        [p-decimals-length]="2">
+                    </po-decimal>
+                    <po-decimal 
+                        class="po-md-3"
+                        name="varAmountLimit"
+                        [p-disabled]="disableFields()"
+                        p-decimals-length = "5"
+                        [p-label]="literals?.varAmountLimit"
+                        [p-placeholder]="literals?.varAmountLimit"
+                        [(ngModel)]="receivingItem.varAmountLimit"
+                        [p-thousand-maxlength]="8"
+                        [p-decimals-length]="5">
+                    </po-decimal>
+                    <po-decimal 
+                        class="po-md-3"
+                        name="greaterAmtVariance"
+                        [p-disabled]="disableFields()"
+                        p-decimals-length = "2"
+                        [p-label]="literals?.greaterAmtVariance"
+                        [p-placeholder]="literals?.greaterAmtVariance"
+                        [(ngModel)]="receivingItem.greaterAmtVariance"
+                        [p-thousand-maxlength]="thousandMaxLengthRate"
+                        [p-decimals-length]="2">
+                    </po-decimal>
+                </po-accordion-item>
+                <po-accordion-item [p-label]="literals?.taxation">
+                    <div class="po-row" *ngIf="!disableFields()">
+                        <po-lookup class="po-md-4" *ngIf="!metadados?.taxClassification?.hidden"
+                            name="taxClassification"
+                            [(ngModel)]="receivingItem.taxClassification"
+                            [p-placeholder]="literals?.taxClassification"
+                            [p-label]="literals?.taxClassification"
+                            [p-literals]="literals"
+                            p-field-label="descriptionClassif"
+                            p-field-value="classifCode"
+                            [p-columns]="zoomClassifColumns"
+                            [p-field-format]="zoomClassifFormat"
+                            [p-filter-service]="serviceClassif">
+                        </po-lookup>
+                        <po-lookup class="po-md-4"  *ngIf="!metadados?.taxCode?.hidden && !disableFields()"
+                            name="taxCode"
+                            [(ngModel)]="receivingItem.taxCode"
+                            [p-placeholder]="literals?.taxCode"
+                            [p-label]="literals?.taxCode"
+                            [p-literals]="literals"
+                            p-field-label="taxDescription"
+                            p-field-value="taxCode"
+                            [p-columns]="zoomTaxCodeColumns"
+                            [p-field-format]="zoomTaxTypeFormat"
+                            [p-filter-service]="serviceTaxType">
+                        </po-lookup>
+                        <po-lookup class="po-md-4"  *ngIf="!metadados?.taxServiceCode?.hidden && !disableFields()"
+                            name="taxServiceCode"
+                            [(ngModel)]="receivingItem.taxServiceCode"
+                            [p-placeholder]="literals?.taxServiceCode"
+                            [p-label]="literals?.taxServiceCode"
+                            [p-literals]="literals"
+                            p-field-label="taxServiceDescription"
+                            p-field-value="taxServiceCode"
+                            [p-columns]="zoomTaxCodeColumns"
+                            [p-field-format]="zoomTaxTypeFormat"
+                            [p-filter-service]="serviceTaxType">
+                        </po-lookup>
+                        <po-lookup class="po-md-4" *ngIf="!metadados?.taxServiceInss?.hidden && !disableFields()"
+                                name="taxServiceInss"
+                                [(ngModel)]="receivingItem.taxServiceInss"
+                                [p-placeholder]="literals?.taxServiceInss"
+                                [p-label]="literals?.taxServiceInss"
+                                [p-literals]="literals"
+                                p-field-label="serviceInssDescription"
+                                p-field-value="taxServiceInssCode"
+                                [p-columns]="zoomTaxServiceInssColumns"
+                                [p-field-format]="zoomTaxServiceInssFormat"
+                                [p-filter-service]="serviceTaxServiceInss">
+                        </po-lookup>
+                        <po-lookup class="po-md-4" *ngIf="!metadados?.incomeNature?.hidden && !disableFields()"
+                                name="incomeNature"
+                                [(ngModel)]="receivingItem.incomeNature"
+                                [p-placeholder]="literals?.incomeNature"
+                                [p-label]="literals?.incomeNature"
+                                [p-literals]="literals"
+                                p-field-label="descriptionNature"
+                                p-field-value="incomeNature"
+                                [p-columns]="zoomIncomeNaturColumns"
+                                [p-field-format]="zoomIncomeNaturFormat"
+                                [p-filter-service]="serviceIncomeNature">
+                        </po-lookup>
+                        <po-lookup class="po-md-4" *ngIf="!metadados?.rfTax?.hidden"
+                                name="rfTax" 
+                                [(ngModel)]="receivingItem.rfTax"
+                                [p-placeholder]="literals?.rfTaxation"
+                                [p-label]="literals?.rfTaxation"
+                                [p-literals]="literals"
+                                p-field-label="taxDescription"
+                                p-field-value="rfTax"
+                                [p-columns]="zoomTaxTypeColumns"
+                                [p-field-format]="zoomTaxTypeFormat"
+                                [p-filter-service]="serviceTaxType">
+                        </po-lookup>
+                     </div>
+                    <div class="po-row" *ngIf="disableFields()">
+                        <po-input class="po-md-4" *ngIf="!metadados?.taxClassification?.hidden"
+                            name="taxClassificationInput"
+                            [p-label]="literals?.taxClassification"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="taxClassificationDesc">
+                        </po-input>
+                        <po-input class="po-md-4" *ngIf="!metadados?.taxCode?.hidden"
+                            name="taxCodeInput"
+                            [p-label]="literals?.taxCode"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="taxCodeDesc">
+                        </po-input>
+                        <po-input class="po-md-4" *ngIf="!metadados?.taxServiceCode?.hidden"
+                            name="taxServiceCodeInput"
+                            [p-label]="literals?.taxServiceCode"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="taxServiceDesc">
+                        </po-input>
+                        <po-input class="po-md-4" *ngIf="!metadados?.taxServiceInss?.hidden"
+                            name="taxServiceInssInput"
+                            [p-label]="literals?.taxServiceInss"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="taxServiceInssDesc">
+                        </po-input>
+                        <po-input class="po-md-4" *ngIf="!metadados?.incomeNature?.hidden"
+                            name="incomeNatureInput"
+                            [p-label]="literals?.incomeNature"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="descriptionNature">
+                        </po-input>
+                        <po-input class="po-md-4" *ngIf="!metadados?.rfTax?.hidden"
+                            name="rfTaxInput"
+                            [p-label]="literals?.rfTaxation"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="rfTaxDesc">
+                        </po-input>
+
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.icmsTaxation?.hidden">
+                       <po-divider class="po-md-12" *ngIf="!metadados?.icmsTaxation?.hidden"
+                            [p-label]="literals?.icms"></po-divider>
+                       <po-select  class="po-md-2" *ngIf="!metadados?.icmsTaxation?.hidden"
+                            name="icmsTaxation"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="receivingItem.icmsTaxation"
+                            [p-label]="literals?.icmsTaxation"
+                            [p-options]="metadados ?  metadados.icmsTaxation.options : optionsIcms">
+                        </po-select>
+                        
+                        <po-decimal 
+                            class="po-md-6" *ngIf="!metadados?.taxReadjFactor?.hidden"
+                            name="taxReadjFactor"
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.taxReadjFactor"
+                            [p-placeholder]="literals?.taxReadjFactor"
+                            [(ngModel)]="receivingItem.taxReadjFactor"
+                            [p-thousand-maxlength]="12"
+                            [p-decimals-length]="8">
+                        </po-decimal>
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.ipiTaxation?.hidden">
+                        <po-divider class="po-md-12" *ngIf="!metadados?.ipiTaxation?.hidden"
+                             [p-label]="literals?.ipi"></po-divider>
+                        <po-select 
+                            class="po-md-2" *ngIf="!metadados?.ipiTaxation?.hidden"
+                            name="ipiTaxation" 
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.ipiTaxation" 
+                            [(ngModel)]="receivingItem.ipiTaxation"
+                            [p-options]="metadados ?  metadados.ipiTaxation.options : optionsIpi"> 
+                        </po-select>
+                        <po-decimal 
+                            class="po-md-3" *ngIf="!metadados?.ipiRate?.hidden"
+                            name="ipiRate"
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.ipiRate"
+                            [p-placeholder]="literals?.ipiRate"
+                            [(ngModel)]="receivingItem.ipiRate"
+                            [p-thousand-maxlength]="3"
+                            [p-decimals-length]="2">
+                        </po-decimal>
+                        <po-lookup class="po-md-4" *ngIf="!metadados?.ipiFamily?.hidden && !disableFields()"
+                            name="ipiFamily"
+                            [(ngModel)]="receivingItem.ipiFamily"
+                            [p-placeholder]="literals?.ipiFamily"
+                            [p-label]="literals?.ipiFamily"
+                            [p-literals]="literals"
+                            p-field-label="taxFamilyDescription"
+                            p-field-value="taxFamilyCode"
+                            [p-columns]="zoomIpiFamilyColumns"
+                            [p-field-format]="zoomIpiFamilyFormat"
+                            [p-filter-service]="serviceTaxFamily">
+                        </po-lookup>
+                        <po-input class="po-md-4" *ngIf="!metadados?.ipiFamily?.hidden && disableFields()"
+                            name="ipiFamilyInput"
+                            [p-label]="literals?.ipiFamily"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="taxFamilyDesc">
+                        </po-input>
+                        <po-container class="po-md-4 po-pb-1" *ngIf="!metadados?.taxIpiSuspens?.hidden">
+                            <po-checkbox *ngIf="!metadados?.taxIpiSuspens?.hidden"
+                                name="taxIpiSuspens" 
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.taxIpiSuspens"
+                                [(ngModel)]="receivingItem.taxIpiSuspens"
+                                (p-change)="changeTaxIpiSuspens()"> 
+                            </po-checkbox>
+                            <po-checkbox *ngIf="!metadados?.onlyOtherTaxes?.hidden"
+                                name="onlyOtherTaxes" 
+                                [p-disabled]="!receivingItem.taxIpiSuspens || disableFields()"
+                                [p-label]="literals?.onlyOtherTaxes"
+                                [(ngModel)]="receivingItem.onlyOtherTaxes">
+                            </po-checkbox>
+                        </po-container>
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.issTaxation?.hidden">
+                        <po-divider class="po-md-12"  *ngIf="!metadados?.issTaxation?.hidden"
+                            p-label="ISS"></po-divider>
+                        <po-select *ngIf="!metadados?.issTaxation?.hidden"
+                            class="po-md-2"
+                            name="issTaxation" 
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.issTaxation" 
+                            [(ngModel)]="receivingItem.issTaxation"
+                            [p-options]="metadados ?  metadados.issTaxation.options : optionsIss"> 
+                        </po-select>
+                        <po-decimal 
+                            class="po-md-3" *ngIf="!metadados?.issRate?.hidden"
+                            name="issRate"
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.issRate"
+                            [p-placeholder]="literals?.issRate"
+                            [(ngModel)]="receivingItem.issRate"
+                            [p-thousand-maxlength]="3"
+                            [p-decimals-length]="2">
+                        </po-decimal>
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.pisOriginTrib?.hidden">
+                        <po-divider class="po-md-12" *ngIf="!metadados?.pisOriginTrib?.hidden"
+                             [p-label]="literals?.pis"></po-divider>
+                        <div class="po-row po-md-12 po-ml-1">
+                            <po-radio-group
+                                name="pisOriginTrib"
+                                [p-disabled]="disableFields()"
+                                [(ngModel)]="receivingItem.pisOriginTrib"
+                                [p-label]="literals?.originTrib"
+                                p-columns="2"
+                                [p-options]="optionsOrigin">
+                            </po-radio-group>
+                        </div>
+                        <div class="po-row po-md-12 po-mb-12">
+                            <po-checkbox 
+                                class="po-md-3"
+                                name="pisCalculateUnitTax" 
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.pisCalculateUnitTax"
+                                [(ngModel)]="receivingItem.pisCalculateUnitTax">
+                            </po-checkbox>
+                        </div>
+                        <div class="po-row po-md-12 po-mb-12">
+                            <po-decimal 
+                                class="po-md-2" 
+                                name="pisRate"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.pisRate"
+                                [(ngModel)]="receivingItem.pisRate"
+                                [p-thousand-maxlength]="thousandMaxLengthRate"
+                                [p-decimals-length]="4">
+                            </po-decimal>
+                            <po-decimal 
+                                class="po-md-2"
+                                name="pisValueUnit"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.pisValueUnit"
+                                [(ngModel)]="receivingItem.pisValueUnit"
+                                [p-thousand-maxlength]="thousandMaxLengthValueUnit"
+                                [p-decimals-length]="decimalValueUnit">
+                            </po-decimal>
+                            <po-decimal 
+                                class="po-md-2"
+                                name="pisReduct"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.pisReduct"
+                                [(ngModel)]="receivingItem.pisReduct"
+                                [p-thousand-maxlength]="thousandMaxLengthReduct"
+                                [p-decimals-length]="decimalsLengthReduct">
+                            </po-decimal>
+                            <po-decimal 
+                                class="po-md-3"
+                                name="substitutePisUnitBase"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.substitutePisUnitBase"
+                                [(ngModel)]="receivingItem.substitutePisUnitBase"
+                                [p-thousand-maxlength]="thousandMaxLengthSubst"
+                                [p-decimals-length]="decimalsLengthSubst">
+                            </po-decimal>
+                        </div>
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.cofinsOriginTrib?.hidden">
+                       <po-divider class="po-md-12" *ngIf="!metadados?.cofinsOriginTrib?.hidden"
+                        [p-label]="literals?.cofins"></po-divider>
+                        <div class="po-row po-md-12 po-ml-1">
+                            <po-radio-group
+                                name="cofinsOriginTrib"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.originTrib"
+                                [(ngModel)]="receivingItem.cofinsOriginTrib"
+                                [p-options]="optionsOrigin">
+                            </po-radio-group>
+                        </div>
+                        <div class="po-row po-md-12 po-mb-12">
+                            <po-checkbox class="po-md-3"
+                                name="cofinsCalculateUnitTax" 
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.cofinsCalculateUnitTax"
+                                [(ngModel)]="receivingItem.cofinsCalculateUnitTax">
+                            </po-checkbox>
+                        </div>
+                        <div class="po-row po-md-12 po-mb-12">
+                            <po-decimal 
+                                class="po-md-2"
+                                name="cofinsRate"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.cofinsRate"
+                                [(ngModel)]="receivingItem.cofinsRate"
+                                [p-thousand-maxlength]="thousandMaxLengthRate"
+                                [p-decimals-length]="decimalRate">
+                            </po-decimal>
+                            
+                            <po-decimal 
+                                class="po-md-2"
+                                name="cofinsValueUnit"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.cofinsValueUnit"
+                                [(ngModel)]="receivingItem.cofinsValueUnit"
+                                [p-thousand-maxlength]="thousandMaxLengthValueUnit"
+                                [p-decimals-length]="decimalValueUnit">
+                            </po-decimal>
+                            <po-decimal 
+                                class="po-md-2"
+                                name="cofinsReduct"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.cofinsReduct"
+                                [(ngModel)]="receivingItem.cofinsReduct"
+                                [p-thousand-maxlength]="thousandMaxLengthReduct"
+                                [p-decimals-length]="decimalsLengthReduct">
+                            </po-decimal>
+                            <po-decimal 
+                                class="po-md-3"
+                                name="substituteCofinsUnitBase"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.substituteCofinsUnitBase"
+                                [(ngModel)]="receivingItem.substituteCofinsUnitBase"
+                                [p-thousand-maxlength]="thousandMaxLengthSubst"
+                                [p-decimals-length]="decimalsLengthSubst">
+                            </po-decimal>
+                        </div>
+                    </div>
+                    <div class="po-row" *ngIf="!metadados?.productGeneralCodeIndex?.hidden">
+                        <po-divider class="po-md-12" *ngIf="!metadados?.productGeneralCodeIndex?.hidden"
+                             [p-label]="literals?.sefaz"></po-divider>
+                        <div class="po-row po-md-5 po-mb-5" *ngIf="!metadados?.productGeneralCodeIndex?.hidden"> 
+                            <po-radio-group
+                                name="productGeneralCodeIndex"
+                                [p-disabled]="disableFields()"
+                                [p-label]="literals?.productGeneralCodeIndex"
+                                [(ngModel)]="receivingItem.productGeneralCodeIndex"
+                                p-columns="4"
+                                [p-options]="metadados ? metadados.productGeneralCodeIndex.options : optionsProductGeneral">
+                           </po-radio-group>
+                        </div>
+                    
+                        <po-lookup class="po-md-6" *ngIf="!metadados?.codeTaxICMS?.hidden && !disableFields()"
+                            name="codeTaxICMS"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="receivingItem.codeTaxICMS"
+                            [p-placeholder]="literals?.codeTaxICMS"
+                            [p-label]="literals?.codeTaxICMS"
+                            [p-literals]="literals"
+                            p-field-label="description"
+                            p-field-value="taxCode"
+                            [p-columns]="zoomTaxCodeColumns"
+                            [p-field-format]="zoomTaxCodeFormat"
+                            [p-filter-service]="serviceTaxCodeIcms"  >
+                        </po-lookup>
+                        <po-input class="po-md-6" *ngIf="!metadados?.codTaxIcms?.hidden && disableFields()"
+                            name="codeTaxICMSInput"
+                            [p-label]="literals?.codTaxIcms"
+                            [p-disabled]="disableFields()"
+                            [(ngModel)]="codeTaxIcmsDesc">
+                        </po-input>
+                        
+                    </div>
+                    <po-divider class="po-md-12" *ngIf="!metadados?.itemType?.hidden"
+                        [p-label]="literals?.itemCode">
+                    </po-divider>
+                        <div class="po-row po-md-12 po-mb-12" *ngIf="!metadados?.itemType?.hidden">
+                            <po-select  class="po-md-3" *ngIf="!metadados?.itemType?.hidden"
+                                name="itemType"
+                                [p-disabled]="metadados?.itemType?.disabled || disableFields()"
+                                [(ngModel)]="receivingItem.itemType"
+                                [p-label]="literals?.itemType"
+                                [p-options]="metadados ?  metadados.itemType.options : optionsItemType"
+                                (p-change)="changeTypeItem()">
+                                
+                            </po-select>
+                            <po-checkbox 
+                                class="po-md-4 po-mt-4 po-m-0" *ngIf="!metadados?.redefinesConciliation?.hidden"
+                                name="redefinesConciliation"
+                                [p-disabled]="disableFields()" 
+                                [p-label]="literals?.redefinesConciliation"
+                                [(ngModel)]="receivingItem.redefinesConciliation">
+                            </po-checkbox>
+                            
+                        </div>
+                        <div class="po-row po-md-12" *ngIf="!metadados?.ivaIndex?.hidden">
+                            <po-container class="po-md-6">
+                                <po-checkbox class="po-md-4 po-mt-3"  *ngIf="!metadados?.ivaIndex?.hidden"
+                                    name="ivaIndex" 
+                                    [p-disabled]="disableFields() || disableTypeItem()"
+                                    [p-label]="literals?.ivaIndex"
+                                    [(ngModel)]="receivingItem.ivaIndex"
+                                    (p-change)="changeIvaIndex()">
+                                </po-checkbox>
+                                <po-lookup class="po-md-6 po-m-0" *ngIf="!metadados?.codeTaxIva?.hidden && !disableFields() && !disableIvaIndex()"
+                                    name="codeTaxIva"
+                                    [(ngModel)]="receivingItem.codeTaxIva"
+                                    [p-placeholder]="literals?.codeTaxIva"
+                                    [p-label]="literals?.codeTaxIva"
+                                    [p-literals]="literals"
+                                    p-field-label="taxIvaDescription"
+                                    p-field-value="codeTaxIva"
+                                    [p-columns]="zoomTaxTypeColumns"
+                                    [p-field-format]="zoomTaxTypeFormat"
+                                    [p-filter-service]="serviceTaxType">
+                                </po-lookup>
+                                <po-input class="po-md-6" *ngIf="(!metadados?.codeTaxIva?.hidden && disableFields()) || disableIvaIndex()"
+                                    name="codeTaxIvaInput"
+                                    [p-label]="literals?.codeTaxIva"
+                                    [p-disabled]="disableFields() || disableIvaIndex()"
+                                    [(ngModel)]="codeTaxIvaDesc">
+                                </po-input>
+                            </po-container>
+                        </div>
+                    <po-divider class="po-md-12" *ngIf="!metadados?.recyclableItem?.hidden"
+                        [p-label]="literals?.reciclavel">
+                    </po-divider>
+                    <div class="po-row po-md-12 po-mb-12" *ngIf="!metadados?.recyclableItem?.hidden"> 
+                        <po-checkbox 
+                            class="po-md-6" *ngIf="!metadados?.recyclableItem?.hidden"
+                            name="recyclableItem" 
+                            [p-disabled]="disableFields()"
+                            [p-label]="literals?.recyclableItem"
+                            [(ngModel)]="receivingItem.recyclableItem"
+                            (p-change)="changeRecyclableItem()">
+                        </po-checkbox>
+                    </div>
+                    <div class="po-row po-md-12 po-mb-12" *ngIf="!metadados?.recyclableItem?.hidden">
+                        <po-select  class="po-md-4" *ngIf="!metadados?.recyclableItem?.hidden"
+                            name="codeRecyclableItem"
+                            [p-disabled]="disableFields() || disableItemRecyclable()"
+                            [(ngModel)]="receivingItem.codeRecyclableItem"
+                            [p-label]="literals?.codeRecyclableItem"
+                            [p-options]="metadados ?  metadados.recyclableItem.options : optionsRecyclableItem">
+                        </po-select>
+                        <po-lookup class="po-md-6" *ngIf="!metadados?.unitMeasurementRecyclableItem?.hidden  && !disableFields() && !disableItemRecyclable()"
+                            name="unitMeasurementRecyclableItem"
+                            [(ngModel)]="receivingItem.unitMeasurementRecyclableItem"
+                            [p-placeholder]="literals?.unitMeasurementRecyclableItem"
+                            [p-label]="literals?.unitMeasurementRecyclableItem"
+                            [p-literals]="literals"
+                            p-field-label="taxIvaDescription"
+                            p-field-value="codeunitMeasurementRecyclableItem"
+                            [p-columns]="zoomUnitMeasurementColumns"
+                            [p-field-format]="zoomUnitMeasurementFormat"
+                            [p-filter-service]="serviceUnityMeasures">
+                        </po-lookup>
+                        <po-input class="po-md-6" *ngIf="(!metadados?.unitMeasurementRecyclableItem?.hidden && disableFields()) || disableItemRecyclable()"
+                            name="unitMeasurementRecyclableItemInput"
+                            [p-label]="literals?.unitMeasurementRecyclableItem"
+                            [p-disabled]="disableFields() || disableItemRecyclable"
+                            [(ngModel)]="unitMeasurementRecyclableItemDesc">
+                        </po-input>
+                    </div>
+                        
+                
+                </po-accordion-item>
+                
+            </po-accordion>
+                
+        </po-tab>
+        <po-tab [p-label]="literals?.site">
+            <div class="po-row">
+                <po-table class="po-md-12"
+                    p-checkbox="false"
+                    p-striped="true"
+                    [p-columns]="columns"
+                    [p-items]="parametersSiteItems"
+                    [p-show-more-disabled]="!hasNext"
+                    (p-show-more)="search(true)">
+                    <ng-template p-table-row-template let-rowItem let-i="rowIndex">
+                        <po-widget>
+                            <div class="po-row">
+                                <po-container
+                                    class="po-sm-3"
+                                    p-no-border="true">
+                                    <span class="blueFont">
+                                        <div class="po-font-text-bold">{{ literals?.varQuantityLimitColumn }}</div>
+                                        <div class="po-font-text">
+                                            {{ rowItem.limitVariationQuantity.toLocaleString('pt-BR', {minimumFractionDigits: 5, maximumFractionDigits: 5}) }}
+                                        </div>
+                                    </span>
+                                </po-container>
+                                <po-container
+                                    class="po-sm-3"
+                                    p-no-border="true">
+
+                                    <span class="blueFont">
+                                        <div class="po-font-text-bold">{{ literals?.varAmountLimitColumn }}</div>
+                                        <div class="po-font-text">
+                                            {{ rowItem.limitVariationValue.toLocaleString('pt-BR', {minimumFractionDigits: 5, maximumFractionDigits: 5}) }}
+                                        </div>
+                                    </span>
+                                </po-container>
+                                <po-container
+                                    class="po-sm-3"
+                                    p-no-border="true">
+
+                                    <span class="blueFont">
+                                        <div class="po-font-text-bold">{{ literals?.variationQtyReColumn }}</div>
+                                        <div class="po-font-text">
+                                            {{ rowItem.variationQuantityReceipt.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                        </div>
+                                    </span>
+                                </po-container>
+                                <po-container
+                                    class="po-sm-3"
+                                    p-no-border="true">
+
+                                    <span class="blueFont">
+                                        <div class="po-font-text-bold">{{ literals?.greaterAmtVarianceColumn }}</div>
+                                        <div class="po-font-text">
+                                            {{ rowItem.variationGreaterAmountReceipt.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2}) }}
+                                        </div>
+                                    </span>
+                                </po-container>
+                            </div>
+                        </po-widget>
+                    </ng-template>
+                </po-table>
+            </div> 
+        </po-tab>
+    </po-tabs>
+</po-page-default>
