@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { PoDisclaimer } from '@po-ui/ng-components';
+import { PoDisclaimer, PoLookupFilteredItemsParams } from '@po-ui/ng-components';
 
 import { TotvsResponse } from 'dts-backoffice-util';
 import { ITaxType } from '../model/tax-type.model';
@@ -41,11 +41,12 @@ export class TaxTypeService {
     getById(taxCode: number): Observable<ITaxType> {
         return this.http.get<ITaxType>(`${this.apiUrl}/${taxCode}`);
     }
-    getFilteredData(filter: string, page: number, pageSize: number): Observable<ITaxType> {
-        const header = { params: { page: page.toString(), pageSize: pageSize.toString() } };
 
-        if (filter && filter.length > 0) {
-            header.params['taxCode'] = filter;
+    getFilteredItems(params: PoLookupFilteredItemsParams): Observable<ITaxType> {
+        const header = { params: { page: params.page.toString(), pageSize: params.pageSize.toString() } };
+
+        if (params.filter && params.filter.length > 0) {
+            header.params['taxCode'] = params.filter;
         }
 
         return this.http.get<ITaxType>(`${this.apiUrl}`, header);
