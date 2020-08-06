@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserParametersService } from '../../shared/services/user-parameters.service';
@@ -9,8 +9,6 @@ import { PoPageDynamicTableActions } from '@po-ui/ng-templates';
   templateUrl: './user-parameters-list.component.html'
 })
 export class UserParametersListComponent implements OnInit, OnDestroy {
-
-  //@Input() metadata: any;
 
   constructor(
     private router: Router,
@@ -28,14 +26,16 @@ export class UserParametersListComponent implements OnInit, OnDestroy {
   getMetadata() {
     this.userSubscription$ = this.service.getMetadataList().subscribe((metad: any) => {
       this.metadata = metad;
-      this.setupComponents();
+      if (this.metadata) {
+        this.setupComponents();
+      }
     });
   }
 
   private setupComponents(): void {
     if (this.metadata.actions) {
       const beforeDuplicate = {
-        beforeDuplicate: ((key: string, item: any) => { // sobrepoe o duplicate padrão
+        beforeDuplicate: ((key: string) => { // sobrepoe o duplicate padrão
           this.router.navigate(['/userParameters', 'copy', key]);
           return { allowAction: false }; // não irá executar o duplicate padrao
         }),
